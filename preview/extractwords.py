@@ -1,8 +1,6 @@
 from operator import itemgetter
 import re
 
-
-
 def extractwords(content, topK=10):
     """
     统计出现频率最高的topK个「二元词组」和其频率
@@ -29,7 +27,6 @@ def extractwords(content, topK=10):
     # 返回前最高topK个字组
     return tags[:topK]
 
-
 def removePunctuation(word):
     """
     去掉标点符号和空格
@@ -40,6 +37,7 @@ def removePunctuation(word):
     r = '[’!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~]+|[+――！，。？、~@#￥%……&*（）]+'
     string = re.sub(r, '', word)
     return string.strip()
+
 
 
 fileName = "happiness_seg.txt"
