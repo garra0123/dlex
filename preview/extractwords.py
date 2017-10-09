@@ -1,7 +1,7 @@
 from operator import itemgetter
 import re
 
-def extractwords(content, topK=10):
+def extract_words(content, topK=10):
     """
     统计出现频率最高的topK个「二元词组」和其频率
     :param content: 统计内容字符串
@@ -14,11 +14,10 @@ def extractwords(content, topK=10):
     # 用于统计二元词组个数
     freq = {}
     for i in range(len(words) - 1):
-        # 连续词汇一
-        w1 = removePunctuation(words[i])
-        # 连续词汇二
-        w2 = removePunctuation(words[i + 1])
-        # 判断两个词汇是否都是词组，长度大于或等于两个
+        # 连续词汇一,去掉标点符号
+        w1 = remove_punctuation(words[i])
+        # 连续词汇二，去掉标点符号
+        w2 = remove_punctuation(words[i + 1])
         if len(w1) > 0 and len(w2) > 0:
             w = w1 +" "+w2
             freq[w] = freq.get(w, 0) + 1
@@ -27,7 +26,7 @@ def extractwords(content, topK=10):
     # 返回前最高topK个字组
     return tags[:topK]
 
-def removePunctuation(word):
+def remove_punctuation(word):
     """
     去掉标点符号和空格
     :param word: 
@@ -40,13 +39,12 @@ def removePunctuation(word):
 
 
 
-fileName = "happiness_seg.txt"
-bytes = open(fileName, "rb").read()
-content = str(bytes, encoding="utf-8")
-words = extractwords(content, topK=10)
+with open("happiness_seg.txt", encoding='utf-8') as f:
+    content = f.read()
+    words = extract_words(content, 10)
 
-print("出现频率最高的前 10 个「二元词组」:")
-for word in words:
-    print("%s  %s " % (word[0], word[1]))
+    print("出现频率最高的前 10 个「二元词组」:")
+    for word in words:
+        print("%s  %s " % (word[0], word[1]))
 
 
